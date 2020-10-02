@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Battleship</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="Executive.js"></script>
+		<script src="Gameplay.js"></script>
+		<script src="Board.js"></script>
+		<script src="Space.js"></script>
+		<script src="Ship.js"></script>
+	</head>
+	<body>
+		<h1>BATTLESHIP</h1>
+
+		<!-- Probably add CSS to this -->
+		<div style="text-align:center" id="menu">
+            <h2>WELCOME</h2>
+            <p>Enter player names (optional):</p>
+			<p> Player 1:  <input autofocus type="text" id="player0-name-input"></p>
+			<p> Player 2:  <input type="text" id="player1-name-input"></p>
+			<p>Select number of ships:</p>
+			<p>
+				<input type="range" min="1" max="5" value="5" id="ship-slider">
+				<span id="num-ships">5</span>
+			</p>
+			<input type="button" id="complete" value="Start" onclick="onclick_human()" >
+			<input type="button" id="complete_AI1" value="StartAI1" onclick="onclick_AI1()">
+			<input type="button" id="complete_AI2" value="StartAI2" onclick="onclick_AI2()">
+			<input type="button" id="complete_AI2" value="StartAI3" onclick="onclick_AI3()">
+		</div>
+<script>
+	function onclick_human()
+	{
+		init();
+		// alert("human");
+		this.type=0;
+		initGame();
+		// document.getElementById("complete").addEventListener("click", e => this.initGame());
+		// document.getElementById("complete").addEventListener("click", this.type=0);
+		
+	}
+	function onclick_AI1()
+	{
+		init();
+		this.type=1;
+		initGame();
+		
+		// document.getElementById("complete_AI1").addEventListener("click", e => this.initGame());
+		// document.getElementById("complete_AI1").addEventListener("click", this.type=1);
+		
+	}
+	function onclick_AI2()
+	{
+		init();
+		this.type=2;
+		initGame();
+	}
+	function onclick_AI3()
+	{
+		init();
+		this.type=3;
+		initGame();
+	}
+	function init(){
+		// alert("init");
+		this.numShips = document.getElementById("ship-slider").value;
+		// Future enhancement: Allow the user to select the size of the board
+		this.rows = 9;
+		this.cols = 9;
+		
+		document.getElementById("ship-slider").addEventListener("input", e => {
+			this.numShips = e.target.value
+			document.getElementById("num-ships").innerHTML = this.numShips;
+		});
+
+	}
+		function initGame()
+		 {
+		for (let i = 0; i <= 1; i++) {
+			let playerName = document.getElementById("player" + i + "-name-input").value;
+			if (playerName == "") playerName = "Player " + (i+1);
+			document.getElementById("player" + i + "-name").value = playerName;
+		}
+		document.getElementById("menu").style.display = "none";
+		document.getElementById("controls").style.display = "";
+		document.getElementById("both_boards").style.display = "";
+		document.getElementById("switch-turn").style.display = "none";
+		this.game = new Gameplay(this.rows, this.cols, this.numShips,this.type);
+	}
+</script>
+
+
+		<div id="both_boards" style="display:none">
+			<div class="board-container" id="board-container0">
+				<input type="text" class="player-name" id="player0-name">
+				<table class="board" id="board0"></table>
+			</div>
+			<div class="board-container" id="board-container1">
+				<input type="text" class="player-name" id="player1-name">
+				<table class="board" id="board1"></table>
+			</div>
+		</div>
+
+		<div id="controls" style="display:none">
+			<div id="message"></div>
+			<div id="dir-container">
+				Direction:
+				<input type="radio" name="dir" id="vertical" value="true"><label for="vertical">Down</label>
+				<input type="radio" name="dir" id="horizontal" value="false" checked><label for="horizontal">Right</label>
+			</div>
+			<input type="button" id="switch-turn" value="Switch turn">
+			<input type="button" id="play-again" value="Play again" style="display:none">
+		</div>
+
+		<div id="modal" class="modal">
+			<div class="modal-content">
+				<p>Next turn in <span id="turn-switch-time"></span> seconds!</p>
+				<input type="button" value="Switch now" id="switch-now">
+			</div>
+		</div>
+		
+		<!-- Create space for footer -->
+		<div id="push"></div>
+		
+		<footer>
+			<span id="authors">
+				Authors: Deepak Kumar, Drake Prebyl, James Kraijcek, Rafael Alaras, Rodridgo Figueroa Justiniano.
+			</span>
+			<span id="links">
+				<a href="https://github.com/eecs448-locked-in-coders/battleship">GitHub Repository</a>
+				&nbsp;
+				<a href="documentation/index.html">Documentation</a></p1>
+			</span>
+		</footer>
+
+		<script>
+			document.addEventListener("DOMContentLoaded",() => {
+				window.executive = new Executive();
+			});
+		</script>
+	</body>
+</html>
