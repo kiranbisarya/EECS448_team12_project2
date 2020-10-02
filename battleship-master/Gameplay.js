@@ -112,19 +112,6 @@ class Gameplay {
 					break;
 				}
 			}
-			flag=false;
-			while(true)
-			{
-				var x=Math.floor((Math.random()*9));
-				var y=Math.floor((Math.random()*9));
-				if (this.board0.cells[x][y].isHit==false)
-				{
-					this.board0.cells[x][y].isHit=true;
-					flag=true;
-					
-					break;
-				}
-			}
 			this.turn = !this.turn;
 		}
 		if (this.type==3)
