@@ -177,6 +177,8 @@ class Gameplay {
        				 var mp3 = new Audio(mp3);
                         mp3.play();
 					this.msg("Hit!");
+					var snd = new Audio("hit.mp3");
+					snd.play();
 					board.shipSpaces--;
 					if (board.checkWin()){
 						this.gameEnd();
@@ -190,6 +192,8 @@ class Gameplay {
 					this.renderBoards(true);
 					document.getElementById("switch-turn").style.display = "";
 					this.msg("Miss.")
+					var snd = new Audio("miss.mp3");
+					snd.play();
 				}
 			}
 		}
