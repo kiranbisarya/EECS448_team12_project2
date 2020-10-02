@@ -3,8 +3,8 @@
 A player-versus-player or Computer-versus Player Battleship game written in [Vanilla JS](http://vanilla-js.com/).
 
 ## Links
-- [Click here to play](https://eecs448-locked-in-coders.github.io/battleship/index.html)
-- [View the documentation](https://eecs448-locked-in-coders.github.io/battleship/documentation/index.html)
+- [Click here to play](https://kiranbisarya.github.io/EECS448_team12_project2/battleship-master/index.html)
+- [View the documentation](https://kiranbisarya.github.io/EECS448_team12_project2/battleship-master/documentation/index.html)
 
 ## Works cited
 - All the code in this project was written from scratch without any JavaScript libraries or frameworks.
