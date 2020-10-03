@@ -170,14 +170,14 @@ class Gameplay {
 	* @param {boolean} isCurrentPlayer Whether the board that was clicked belongs to the player whose turn it currently is
 	**/
 	clickSpace(cell, isCurrentPlayer) {
-		if (this.isSetup) {
+		if (this.isSetup && this.turn == false) {
 			if (!isCurrentPlayer && !cell.isHit) {
 				cell.isHit = true;
 				if (cell.hasShip) {
 					let board = this.turn ? this.board0 : this.board1;
-					var mp3 = "music/music.mp3";
-       				 var mp3 = new Audio(mp3);
-                        mp3.play();
+					// var mp3 = "music/music.mp3";
+       				//  var mp3 = new Audio(mp3);
+                    //     mp3.play();
 					this.msg("Hit!");
 					var snd = new Audio("hit.mp3");
 					snd.play();
