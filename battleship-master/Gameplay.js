@@ -76,13 +76,31 @@ class Gameplay {
 	**/
 	switchTurns() {
 		modal.style.display = "none";
+		// this.msg("this.turn FIRST " + this.turn);
 		this.turn = !this.turn;
 		this.renderBoards(false);
 		clearInterval(this.turnTimer);
-		this.msg("It's " + this.playerName(this.turn) + "'s turn. Attack a space on " + this.playerName(!this.turn) + "'s board.");
-		if (this.type==1)
+		this.msg(" It's " + this.playerName(this.turn) + "'s turn. Attack a space on " + this.playerName(!this.turn) + "'s board.");
+		if (this.type==1 && this.turn==true)
 		{
-			var flag=false;
+			// var flag=false;
+			while(true)
+			{
+				var x=Math.floor((Math.random()*9));
+				var y=Math.floor((Math.random()*9));
+				if (this.board0.cells[x][y].isHit==false) 
+				{
+					this.board0.cells[x][y].isHit=true;
+					// flag=true;
+					
+					break;
+				}
+			}
+			// this.turn = !this.turn;
+		}
+		if (this.type==2 && this.turn==true)
+		{
+			// var flag=false;
 			while(true)
 			{
 				var x=Math.floor((Math.random()*9));
@@ -90,33 +108,17 @@ class Gameplay {
 				if (this.board0.cells[x][y].isHit==false)
 				{
 					this.board0.cells[x][y].isHit=true;
-					flag=true;
+					// flag=true;
 					
 					break;
 				}
 			}
-			this.turn = !this.turn;
+			// this.turn = !this.turn;
+			// this.msg("this.turn BEFORE " + !this.turn + " this.turn AFTER " +this.turn);
 		}
-		if (this.type==2)
+		if (this.type==3 && this.turn==true)
 		{
-			var flag=false;
-			while(true)
-			{
-				var x=Math.floor((Math.random()*9));
-				var y=Math.floor((Math.random()*9));
-				if (this.board0.cells[x][y].isHit==false)
-				{
-					this.board0.cells[x][y].isHit=true;
-					flag=true;
-					
-					break;
-				}
-			}
-			this.turn = !this.turn;
-		}
-		if (this.type==3)
-		{
-			var flag=false;
+			// var flag=false;
 			while(true)
 			{
 				var x=Math.floor((Math.random()*9));
@@ -125,12 +127,12 @@ class Gameplay {
 				{
 
 					this.board0.cells[x][y].isHit=true;
-					flag=true;
+					// flag=true;
 					
 					break;
 				}
 			}
-			this.turn = !this.turn;
+			// this.turn = !this.turn;
 		}
 	}
 
