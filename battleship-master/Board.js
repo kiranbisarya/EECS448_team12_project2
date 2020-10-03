@@ -121,7 +121,7 @@ class Board {
 	* @return If all ship spaces on this board have been sunk
 	**/
 	checkWin() {
-		return this.shipSpaces == 0;
+		return this.shipSpaces <= 0;
 	}
 
 	/**
