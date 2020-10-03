@@ -178,7 +178,8 @@ class Gameplay {
 					// var mp3 = "music/music.mp3";
        				//  var mp3 = new Audio(mp3);
                     //     mp3.play();
-					this.msg("Hit!" + "board.checkWin() " + board.checkWin() + "board.shipSpaces " + board.shipSpaces);
+					// this.msg("Hit!" + "board.checkWin() " + board.checkWin() + "board.shipSpaces " + board.shipSpaces);
+					this.msg("Hit!");
 					var snd = new Audio("hit.mp3");
 					snd.play();
 					board.shipSpaces--;
