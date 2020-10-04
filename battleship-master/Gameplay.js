@@ -79,6 +79,7 @@ class Gameplay {
 	switchTurns() {
 		modal.style.display = "none";
 		// this.msg("this.turn FIRST " + this.turn);
+		this.lastHit=false;
 		this.turn = !this.turn;
 		this.renderBoards(false);
 		clearInterval(this.turnTimer);
@@ -100,24 +101,111 @@ class Gameplay {
 			}
 			// this.turn = !this.turn;
 		}
-		if (this.type==2 && this.turn==true)
+
+		if (this.type==2&& this.turn==true)
 		{
-			// var flag=false;
+			var flag=false;
 			while(true)
 			{
-				var x=Math.floor((Math.random()*9));
-				var y=Math.floor((Math.random()*9));
-				if (this.board0.cells[x][y].isHit==false)
+				var step=[[-1,0],[1,0],[0,1],[0,-1]];
+				// alert("step")
+				if (this.lastHit==true)
 				{
-					this.board0.cells[x][y].isHit=true;
-					// flag=true;
-					
-					break;
+					this.lastHit=false;
+					for(let i=0;i<4;i++)
+					{
+						var x=this.lastX+step[i][0];
+						var y=this.lastY+step[i][1];
+						if(x>=0&&x<9&&y>=0&&y<9&&this.board0.cells[x][y].hasShip==true&&this.board0.cells[x][y].isHit==false)
+						{
+							this.board0.cells[x][y].isHit=true;
+							// this.Hitnum++;
+							// alert("Hit！！"+this.Hitnum+" "+this.listi)
+							flag=true;
+							this.lastHit=true;
+							this.lastX=x;
+							this.lastY=y;
+							break;
+						}
+					}
+					if(flag==true)break;
+				}
+				else
+				{
+					var x=Math.floor((Math.random()*9));
+					var y=Math.floor((Math.random()*9));
+					if (this.board0.cells[x][y].isHit==false)
+					{
+						this.board0.cells[x][y].isHit=true;
+						
+						flag=true;
+						if(this.board0.cells[x][y].hasShip==true)
+						{
+							// this.Hitnum++;
+							// alert("Hit！！"+this.Hitnum+" "+this.listi)
+							this.lastX=x;
+							this.lastY=y;
+							this.lastHit=true
+						};
+						break;
+					}
 				}
 			}
-			// this.turn = !this.turn;
-			// this.msg("this.turn BEFORE " + !this.turn + " this.turn AFTER " +this.turn);
-		}
+		// if (this.type==2 && this.turn==true)
+		// {
+		// 	// var flag=false;
+		// 	while(true)
+		// 	{
+		// 		var x=Math.floor((Math.random()*9));
+		// 		var y=Math.floor((Math.random()*9));
+		// 		const index = this.board0.cells[x][y]; 
+
+		// 		if((this.board0.cells[x][y].isHit==true) && (this.board0.cells[x][y].hasShip==true)) //if random guess has ship
+		// 			{
+		// 				switch(Math.floor(((Math.random()*4) + 1))) // randomly choose a number from 1-4
+		// 				{
+		// 					case 1: //guess to the right
+		// 						// this.board0.cells[x][y].isHit = true;
+		// 						index = this.board0.cells[x+1][y];
+		// 						alert("Case 1!");
+		// 						break;
+		// 					case 2: //guess to the left
+		// 						// this.board0.cells[x][y].isHit=true;
+		// 						index = this.board0.cells[x-1][y];
+		// 						alert("Case 2!");
+		// 						break;
+		// 					case 3: //guess up
+		// 						// this.board0.cells[x][y].isHit=true;
+		// 						index = this.board0.cells[x][y+1];
+		// 						alert("Case 3!");
+		// 						break;
+		// 					case 4: //guess down
+		// 						// this.board0.cells[x][y].isHit=true;
+		// 						index = this.board0.cells[x][y-1];
+		// 						alert("Case 4!");
+		// 						break;
+		// 				}
+		// 			}
+		// 		else if (this.board0.cells[x][y].isHit==false)
+		// 		{
+		// 			this.board0.cells[x][y].isHit=true; //random guess
+		// 				// flag=true;
+		// 			break;
+		// 		}
+		// 		// if ((this.board0.cells[x][y].isHit=true)&&(this.board0.cells[x][y].hasShip==true))
+		// 		// { //if random guess is a hit, then following guesses should be orthogonal
+						
+		// 		// }
+		// 		// else if((this.board0.cells[x][y].isHit=false))
+		// 		// {
+		// 		// 	this.board0.cells[x][y].isHit=true; //random guess
+		// 		// 	break;
+		// 		// }
+		// 		break;
+		// 	}
+		// 	// this.turn = !this.turn;
+		// 	// this.msg("this.turn BEFORE " + !this.turn + " this.turn AFTER " +this.turn);
+		// }
 		if (this.type==3 && this.turn==true)
 		{
 			// var flag=false;
@@ -130,9 +218,13 @@ class Gameplay {
 
 					this.board0.cells[x][y].isHit=true;
 					// flag=true;
+					if (board.checkWin()){
+						this.gameEnd();
+					} 
 					
 					break;
 				}
+				
 			}
 			// this.turn = !this.turn;
 		}
