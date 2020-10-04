@@ -30,6 +30,8 @@ class Gameplay {
 		this.board0 = new Board(rows, cols, this.numShips);
 		this.board1 = new Board(rows, cols, this.numShips);
 		this.renderBoards(false);
+		let num1 = numShip;
+		let num2 = numShip;
 		
 		this.isVertical = false;
 		for (let radio of document.getElementsByName("dir")) {
@@ -169,6 +171,15 @@ class Gameplay {
 	* @param {Space} cell The Space object that was clicked
 	* @param {boolean} isCurrentPlayer Whether the board that was clicked belongs to the player whose turn it currently is
 	**/
+	checkWin()
+	{
+		if(num1<=0 || num2<=0)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	clickSpace(cell, isCurrentPlayer) {
 		if ((this.isSetup && this.turn == false) || (this.isSetup && this.type==0)) {
 			if (!isCurrentPlayer && !cell.isHit) {
@@ -183,6 +194,15 @@ class Gameplay {
 					var snd = new Audio("hit.mp3");
 					snd.play();
 					board.shipSpaces--;
+					if(this.turn == true)
+					{
+						num1--;
+					}
+					else
+					{
+						num2--;
+					}
+					
 					if (board.checkWin()){
 						this.gameEnd();
 					} 
