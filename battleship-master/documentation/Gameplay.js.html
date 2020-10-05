@@ -38,10 +38,10 @@ class Gameplay {
 	**/
 	constructor(rows, cols, numShip) {
 		/*
-		 * @member turn {boolean} Which player's turn it is - false is board0 (left) and true is board1 (right)
+		 * @member turn {boolean} Which player's turn it is - false is playerOneBoard (left) and true is playerTwoBoard (right)
 		 * @member isSetup {boolean} Whether the ship placement phase of gameplay has been completed
-		 * @member board0 {Board} Player false's board
-		 * @member board1 {Board} Player true's board
+		 * @member playerOneBoard {Board} Player false's board
+		 * @member playerTwoBoard {Board} Player true's board
 		 * @member numShipsPlaced {number} How many ships the current player has placed so far during setup
 		 * @member isVertical {boolean} Whether the ship is vertical or horizontal during ship placement
 		 */
@@ -53,8 +53,8 @@ class Gameplay {
 		this.isSetup = false;
 		this.numShipsPlaced = 0;
 
-		this.board0 = new Board(rows, cols, this.numShips);
-		this.board1 = new Board(rows, cols, this.numShips);
+		this.playerOneBoard = new Board(rows, cols, this.numShips);
+		this.playerTwoBoard = new Board(rows, cols, this.numShips);
 		this.renderBoards(false);
 		
 		this.isVertical = false;
@@ -112,8 +112,8 @@ class Gameplay {
 	* @description Render the boards, hides the ships on both boards, for use during turn switching
 	**/
 	blankBoards() {
-		this.board0.render(document.getElementById("board0"), this, false, true);
-		this.board1.render(document.getElementById("board1"), this, false, true);
+		this.playerOneBoard.render(document.getElementById("playerOneBoard"), this, false, true);
+		this.playerTwoBoard.render(document.getElementById("playerTwoBoard"), this, false, true);
 	}
 
 	/**
@@ -121,8 +121,8 @@ class Gameplay {
 	* @parameter {boolean} preventClicking Whether to not setup the clickSpace listener on each cell
 	**/
 	renderBoards(preventClicking) {
-		this.board0.render(document.getElementById("board0"), this, !this.turn, preventClicking);
-		this.board1.render(document.getElementById("board1"), this, this.turn, preventClicking);
+		this.playerOneBoard.render(document.getElementById("playerOneBoard"), this, !this.turn, preventClicking);
+		this.playerTwoBoard.render(document.getElementById("playerTwoBoard"), this, this.turn, preventClicking);
 	}
 
 	/**
@@ -130,8 +130,8 @@ class Gameplay {
 	**/
 	gameEnd() {
 		this.msg(this.playerName(this.turn) + " wins!!!");
-		this.board0.render(document.getElementById("board0"), this, true, true);
-		this.board1.render(document.getElementById("board1"), this, true, true);
+		this.playerOneBoard.render(document.getElementById("playerOneBoard"), this, true, true);
+		this.playerTwoBoard.render(document.getElementById("playerTwoBoard"), this, true, true);
 		document.getElementById("switch-turn").style.display = "none";
 		document.getElementById("play-again").style.display = "";
 	}
@@ -146,7 +146,7 @@ class Gameplay {
 			if (!isCurrentPlayer &amp;&amp; !cell.isHit) {
 				cell.isHit = true;
 				if (cell.hasShip) {
-					let board = this.turn ? this.board0 : this.board1;
+					let board = this.turn ? this.playerOneBoard : this.playerTwoBoard;
 					this.msg("Hit!");
 					board.shipSpaces--;
 					if (board.checkWin()){
@@ -174,7 +174,7 @@ class Gameplay {
 	* @param cell {Space} The space the user clicked on, which will be the top/left end of the new ship
 	**/
 	newShip(cell) {
-		let board = this.turn ? this.board1 : this.board0;
+		let board = this.turn ? this.playerTwoBoard : this.playerOneBoard;
 		let shipLength = this.numShips - this.numShipsPlaced;
 		let placedShip = board.placeShip(shipLength, cell.row, cell.col, this.isVertical);
 		if (placedShip !== true) { // Failed to place ship in a valid location
@@ -190,7 +190,7 @@ class Gameplay {
 			this.renderBoards(true);
 			document.getElementById("dir-container").style.display = "none";
 			document.getElementById("switch-turn").style.display = "";
-			if (this.board0.ships.length == this.board1.ships.length) { // Both players have placed their ships
+			if (this.playerOneBoard.ships.length == this.playerTwoBoard.ships.length) { // Both players have placed their ships
 				this.isSetup = true;
 			}
 		}

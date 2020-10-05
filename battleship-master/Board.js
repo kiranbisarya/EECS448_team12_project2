@@ -20,6 +20,7 @@ class Board {
 		this.shipSpaces = 0;
 		this.rows = rows;
 		this.cols = cols;
+
 		for (let row = 0; row < rows; row++) {
 			this.cells[row] = []; //Declaring cells as a 2-D array (a 1-D array who's elements point to another array).
 			for (let col = 0; col < cols; col++) {
@@ -92,6 +93,7 @@ class Board {
 				return "This location would overlap with another ship. Try again.";
 			}
 			this.ships.push(ship);
+			console.log("in placeShip", length)
 			this.shipSpaces += length;
 			for (let coord of coords) {
 				// alert(coord[0]);
@@ -121,7 +123,7 @@ class Board {
 	* @return If all ship spaces on this board have been sunk
 	**/
 	checkWin() {
-		return this.shipSpaces <= 0;
+		return this.shipSpaces == 0;
 	}
 
 	/**
